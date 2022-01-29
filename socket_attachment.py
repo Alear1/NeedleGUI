@@ -1,6 +1,8 @@
 #Attaching the socket
 #THIS IS GOING TO HAVE TO GO INTO ANOTHER THREAD(MAYBE)
 
+#TODO: Add timeout or cancellation to gpredict connection
+
 import socket
 import misc_tools
 
@@ -44,6 +46,7 @@ class SocketGrabber:
             print("Listening for GPredict connection")
             self.socket.listen()
             self.conn, self.addr = self.socket.accept()
+            #self.conn.setblocking(0)
         except:
             print("Error listening for socket")
             return 0
@@ -54,16 +57,23 @@ class SocketGrabber:
             self.close_connection()
         else:
             print("Connected by", self.addr)
+        self.conn.sendall(b'AZ0 EL0')
+
 
     def read_data(self):
-        raw_data = self.conn.recv(4096)
-
-        if self.verbose: print(self.rec_data)
         
-        raw_data = misc_tools.strip_regex(raw_data)
+        try:
+            if self.conn.recv(4096):
+                raw_data = self.conn.recv(4096)
+        except:
+            print("Error with reading data")
+
+        if self.verbose: 
+            print(self.rec_data)
         
         #Get target tuple from cleaned string:
         if "Z" in self.rec_data:
+            raw_data = misc_tools.strip_regex(raw_data)
             self.rec_data = misc_tools.extract_az_el_from_string(self.rec_data)
             return self.rec_data
 
@@ -84,7 +94,7 @@ class SocketGrabber:
         except:
             print("Error closing Gpredict connection")
 
-    def update_data(self, TARGET, POSITION):
+    def update_data(self, POSITION):
         #Read current target data from gpredict and send current position data
         #Returns target data
 

@@ -9,7 +9,7 @@ class CoreInfo:
         
         #Define pointing information (target and current) (az and el will be float tuples)
         self.raw_target = (0, 0)
-        self.raw_position = None
+        self.raw_position = (0, 0)
         self.manual_target_offset = (0,0)
         self.manual_position_offset = (0, 0)
 
@@ -28,14 +28,13 @@ class CoreInfo:
         self.gpredict_connection = 0
         #is there currently a connection to the serial port?
         self.serial_connection = 0
-        #self.sercon =
-
+        
     
     def update(self):
         #This will update the back end
 
         try:
-            self.current_position, self.current_position = self.sockcon.update_data()
+            self.current_target = self.sockcon.update_data(self.current_position)
             self.sercon.update_data()
         except:
             print("ERROR: Could not update")
@@ -59,7 +58,9 @@ class CoreInfo:
         self.sercon = serial_connector.SerialHandler(PORT=self.serial_port_addr, BAUDRATE=self.serial_port_baudrate)
         if self.sercon.start_connection():
             print("Serial connection established")
+            self.serial_connection = 1
             return 1
         else:
             print("Serial connection failed")
+            self.serial_connection = 0
             return 0
