@@ -25,3 +25,7 @@ if __name__ == "__main__":
     #Testing the socket connection:
     #sock = socket_attachment.SocketGrabber()
     #sock.blocking_recv()
+
+    #MAIN LOOP:
+    while True:
+        core_info.update()

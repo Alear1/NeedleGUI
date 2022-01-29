@@ -1,29 +1,36 @@
 #Connects to the nano over serial
 #https://pyserial.readthedocs.io/en/latest/shortintro.html
 
+
+#TODO: in init, create port detection
+
 import serial
 
 class SerialHandler:
-    def __init__(self, PORT=None):
+    def __init__(self, PORT=None, BAUDRATE=9600):
         
         if PORT:
             pass
             self.ser = serial.Serial()
-            self.ser.baudrate = 9600
+            self.ser.baudrate = BAUDRATE
             self.ser.port = PORT
 
         else:
             pass
             #run port detection to detect arduino somehow
 
+
+    def start_connection(self):
         try:
             self.ser.open()
             if self.ser.is_open:
                 print("Serial connection established")
+                return 1
             else:
                 raise Exception()
         except:
             print("Error opening serial connection")
+            return 0
     
     def close_connection(self):
         self.ser.close()
