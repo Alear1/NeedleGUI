@@ -17,15 +17,22 @@ if __name__ == "__main__":
     core_info = data_handler.CoreInfo()
     window = gui_main.MainWindow(core_info)
 
+    #Testing socket:
+    #core_info.start_gpredict_socket()
+    #core_info.stop_gpredict_socket()
+
+    #Testing Both:
+    core_info.start_gpredict_socket()
+    core_info.start_serial_connection()
+    core_info.stop_gpredict_socket()
+
     #Testing the serial connection:
     #ser = serial_connector.SerialHandler(PORT="/dev/ttyUSB0")
     #ser.manual_input()
     #ser.close_connection()
     
-    #Testing the socket connection:
-    #sock = socket_attachment.SocketGrabber()
-    #sock.blocking_recv()
+
 
     #MAIN LOOP:
-    while True:
-        core_info.update()
+    #while True:
+    #    core_info.update()

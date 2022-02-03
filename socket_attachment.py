@@ -1,14 +1,18 @@
 #Attaching the socket
 #THIS IS GOING TO HAVE TO GO INTO ANOTHER THREAD(MAYBE)
+#https://realpython.com/python-sockets/
 
 #TODO: Add timeout or cancellation to gpredict connection
 
 import socket
 import misc_tools
+import threading
+import time
 
 class SocketGrabber:
 
     def __init__(self, port=4533, host='127.0.0.1', verbose=0):
+        super(SocketGrabber, self).__init__()
         
         self.PORT = port
         self.HOST = host
@@ -16,12 +20,27 @@ class SocketGrabber:
         self.verbose = verbose
 
         self.rec_data = None
+        self.exit_flag = 0
 
     def blocking_recv(self):
+
+        print("Starting TCP socket on address", self.PORT)
+
         try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.bind((self.HOST, self.PORT))
+        except:
+            print("Error starting socket in socket_attachment")
+            return 0
+        
+        try:
+            print("Listening for GPredict connection")
+            self.socket.listen()
+            self.conn, self.addr = self.socket.accept()
+            print("Starting attempt")
             with self.conn:
                 print("Connected by", self.addr)
-                while True:
+                while True and not self.exit_flag:
                     data = self.conn.recv(4096)
                     print(data)
                     if not data:
@@ -103,3 +122,16 @@ class SocketGrabber:
         return self.rec_data
 
 
+class SocketThread(threading.Thread):
+    def __init__(self, threadID, name, counter, socket):
+        super(SocketThread, self).__init__()
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+        self.exit_flag = 0
+        self.sock = socket
+    
+    def run(self):
+        print ("Starting " + self.name)
+        self.sock.blocking_recv()
+        print ("Exiting " + self.name)
