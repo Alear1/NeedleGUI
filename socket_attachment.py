@@ -1,12 +1,18 @@
 #Attaching the socket
 #THIS IS GOING TO HAVE TO GO INTO ANOTHER THREAD(MAYBE)
+#https://realpython.com/python-sockets/
+
+#TODO: Add timeout or cancellation to gpredict connection
 
 import socket
 import misc_tools
+import threading
+import time
 
 class SocketGrabber:
 
     def __init__(self, port=4533, host='127.0.0.1', verbose=0):
+        super(SocketGrabber, self).__init__()
         
         self.PORT = port
         self.HOST = host
@@ -14,12 +20,27 @@ class SocketGrabber:
         self.verbose = verbose
 
         self.rec_data = None
+        self.exit_flag = 0
 
     def blocking_recv(self):
+
+        print("Starting TCP socket on address", self.PORT)
+
         try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.bind((self.HOST, self.PORT))
+        except:
+            print("Error starting socket in socket_attachment")
+            return 0
+        
+        try:
+            print("Listening for GPredict connection")
+            self.socket.listen()
+            self.conn, self.addr = self.socket.accept()
+            print("Starting attempt")
             with self.conn:
                 print("Connected by", self.addr)
-                while True:
+                while True and not self.exit_flag:
                     data = self.conn.recv(4096)
                     print(data)
                     if not data:
@@ -44,6 +65,7 @@ class SocketGrabber:
             print("Listening for GPredict connection")
             self.socket.listen()
             self.conn, self.addr = self.socket.accept()
+            #self.conn.setblocking(0)
         except:
             print("Error listening for socket")
             return 0
@@ -54,16 +76,23 @@ class SocketGrabber:
             self.close_connection()
         else:
             print("Connected by", self.addr)
+        self.conn.sendall(b'AZ0 EL0')
+
 
     def read_data(self):
-        raw_data = self.conn.recv(4096)
-
-        if self.verbose: print(self.rec_data)
         
-        raw_data = misc_tools.strip_regex(raw_data)
+        try:
+            if self.conn.recv(4096):
+                raw_data = self.conn.recv(4096)
+        except:
+            print("Error with reading data")
+
+        if self.verbose: 
+            print(self.rec_data)
         
         #Get target tuple from cleaned string:
         if "Z" in self.rec_data:
+            raw_data = misc_tools.strip_regex(raw_data)
             self.rec_data = misc_tools.extract_az_el_from_string(self.rec_data)
             return self.rec_data
 
@@ -84,7 +113,7 @@ class SocketGrabber:
         except:
             print("Error closing Gpredict connection")
 
-    def update_data(self, TARGET, POSITION):
+    def update_data(self, POSITION):
         #Read current target data from gpredict and send current position data
         #Returns target data
 
@@ -93,3 +122,16 @@ class SocketGrabber:
         return self.rec_data
 
 
+class SocketThread(threading.Thread):
+    def __init__(self, threadID, name, counter, socket):
+        super(SocketThread, self).__init__()
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+        self.exit_flag = 0
+        self.sock = socket
+    
+    def run(self):
+        print ("Starting " + self.name)
+        self.sock.blocking_recv()
+        print ("Exiting " + self.name)
