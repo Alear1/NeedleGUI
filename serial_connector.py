@@ -42,8 +42,8 @@ class SerialHandler:
             return 0
 
     def comm_loop(self):
-        #Every half second the system sends a command to the Arduino and then listens for a response if required
-        #Commands are queued. Get position called every full second
+        #Every full second the get position command is sent to the Arduino
+        #Other commands can be sent when this is not happening (async is a nightmare)
         pass
 
     def close_connection(self):
