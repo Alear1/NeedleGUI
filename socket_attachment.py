@@ -7,13 +7,15 @@
 import socket
 import misc_tools
 import threading
+import weakref
 import time
 
 class SocketGrabber:
 
-    def __init__(self, port=4533, host='127.0.0.1', verbose=0):
+    def __init__(self, parent, port=4533, host='127.0.0.1', verbose=0):
         super(SocketGrabber, self).__init__()
         
+        self.parent = weakref.ref(parent)
         self.PORT = port
         self.HOST = host
 
@@ -40,12 +42,13 @@ class SocketGrabber:
             print("Starting attempt")
             with self.conn:
                 print("Connected by", self.addr)
-                while True and not self.exit_flag:
+                while True and not self.exit_flag and self.parent.socket_connection_enabled:
                     data = self.conn.recv(4096)
                     print(data)
                     if not data:
                         break
-                    self.conn.sendall(b'AZ123.4 EL56.7')
+                    self.conn.sendall(self.parent.socket_send_string)
+                self.close_connection()
         except:
             print("Error creating connection")
     
@@ -120,7 +123,6 @@ class SocketGrabber:
         self.read_data()
         self.write_data()
         return self.rec_data
-
 
 class SocketThread(threading.Thread):
     def __init__(self, threadID, name, counter, socket):

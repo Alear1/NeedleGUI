@@ -14,25 +14,18 @@ import socket_attachment #REMOVE LATER
 if __name__ == "__main__":
     
     #Start the gui and initialize the data handler
+    print("Starting NeedleGUI")
     core_info = data_handler.CoreInfo()
-    window = gui_main.MainWindow(core_info)
-
-    #Testing socket:
-    #core_info.start_gpredict_socket()
-    #core_info.stop_gpredict_socket()
-
+    print("Exiting NeedleGUI. Goodbye!")
     #Testing Both:
-    core_info.start_gpredict_socket()
-    core_info.start_serial_connection()
-    core_info.stop_gpredict_socket()
+    #core_info.start_gpredict_socket()
+    #core_info.start_serial_connection()
 
     #Testing the serial connection:
     #ser = serial_connector.SerialHandler(PORT="/dev/ttyUSB0")
     #ser.manual_input()
     #ser.close_connection()
-    
 
-
-    #MAIN LOOP:
-    #while True:
-    #    core_info.update()
+   #Testing socket:
+    #core_info.start_gpredict_socket()
+    #core_info.stop_gpredict_socket()

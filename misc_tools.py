@@ -3,7 +3,6 @@
 
 #Collection of useful tools
 
-
 def strip_regex(input_string):
     #Takes a string with regex elements like \n \r and returns a clean string with those removed
     output_string = input_string
@@ -26,3 +25,7 @@ def extract_az_el_from_string(input_string):
     el = float(input_string[ind_begin:])
 
     return (az, el)
+
+def az_el_to_string(input_pair):
+
+    return 
