@@ -7,13 +7,15 @@
 import socket
 import misc_tools
 import threading
+import weakref
 import time
 
 class SocketGrabber:
 
-    def __init__(self, port=4533, host='127.0.0.1', verbose=0):
+    def __init__(self, parent, port=4533, host='127.0.0.1', verbose=0):
         super(SocketGrabber, self).__init__()
         
+        self.parent = parent
         self.PORT = port
         self.HOST = host
 
@@ -40,61 +42,37 @@ class SocketGrabber:
             print("Starting attempt")
             with self.conn:
                 print("Connected by", self.addr)
-                while True and not self.exit_flag:
+                while True and not self.exit_flag and self.parent.socket_connection_enabled:
                     data = self.conn.recv(4096)
-                    print(data)
+                    #print(data)
                     if not data:
                         break
-                    self.conn.sendall(b'AZ123.4 EL56.7')
+                    self.conn.sendall(self.parent.create_socket_send_string())
+                    self.parse_data(data)
+                    #print(self.parent.create_socket_send_string())
+                self.close_connection()
         except:
             print("Error creating connection")
-    
-    def start_nonblocking(self):
-        #Starts the non-blocking gpredict connection
 
-        print("Starting TCP socket on address", self.PORT)
-
+    def parse_data(self, input_data):
+        data = input_data.decode("UTF-8")
         try:
-            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.bind((self.HOST, self.PORT))
+            if data[0] == "P":
+                #New target given
+
+                #Remove command char:
+                data = data[2:]
+                #find first space:
+                index = data.index(" ")
+                #extract AZ target data
+                self.parent.raw_target[0] = float(data[0:index])
+                #remove az data:
+                data = data[index + 1:]
+                self.parent.raw_target[1] = float(data)
         except:
-            print("Error starting socket in socket_attachment")
-            return 0
+            self.parent.raw_target[1] = 0
+            print("ERROR in parse_data")
 
-        try:
-            print("Listening for GPredict connection")
-            self.socket.listen()
-            self.conn, self.addr = self.socket.accept()
-            #self.conn.setblocking(0)
-        except:
-            print("Error listening for socket")
-            return 0
-            
-        self.rec_data = self.conn.recv(4096)
-        if not self.rec_data:
-            print("Error establishing Gpredict connection")
-            self.close_connection()
-        else:
-            print("Connected by", self.addr)
-        self.conn.sendall(b'AZ0 EL0')
-
-
-    def read_data(self):
-        
-        try:
-            if self.conn.recv(4096):
-                raw_data = self.conn.recv(4096)
-        except:
-            print("Error with reading data")
-
-        if self.verbose: 
-            print(self.rec_data)
-        
-        #Get target tuple from cleaned string:
-        if "Z" in self.rec_data:
-            raw_data = misc_tools.strip_regex(raw_data)
-            self.rec_data = misc_tools.extract_az_el_from_string(self.rec_data)
-            return self.rec_data
 
     def write_data(self, output_string):
         #Sends data to gpredict over socket
@@ -110,6 +88,8 @@ class SocketGrabber:
         try:
             self.conn.close()
             self.socket.close()
+            self.parent.socket_connection_enabled = 0
+
         except:
             print("Error closing Gpredict connection")
 
@@ -120,7 +100,6 @@ class SocketGrabber:
         self.read_data()
         self.write_data()
         return self.rec_data
-
 
 class SocketThread(threading.Thread):
     def __init__(self, threadID, name, counter, socket):
