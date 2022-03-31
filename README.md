@@ -1,19 +1,20 @@
 # NeedleGUI
 
-Components: 
--start/stop gpredict connection
--start/stop arduino connection
+Components:
+<ul>
+  <li>start/stop gpredict connection</li>
+  <li>start/stop arduino connection</li>
 
--Target from Gpredict az & el
--Position from Arduino  az & el
--Manual offset az & el
+  <li>Target from Gpredict az & el</li>
+  <li>Position from Arduino  az & el</li>
+  <li>Manual offset az & el</li>
 
--set current position as x & y, az & el
--one az rotation CCW
--one az rotation CW
+  <li>set current position as x & y, az & el</li>
+  <li>one az rotation CCW</li>
+  <li>one az rotation CW</li>
 
--Spiral search tool
-
+  <li>Spiral search tool</li>
+</ul>
 
 Possible:
 -Set motor speed
