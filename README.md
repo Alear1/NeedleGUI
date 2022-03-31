@@ -19,3 +19,4 @@ Possible:
 -Set motor speed
 -Set motor control type
 -temperature
+-Emergency Stop
