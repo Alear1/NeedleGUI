@@ -22,32 +22,27 @@ class CoreInfo:
         #Data required to create gpredict connection:
         self.socket_addr = 4533
         self.socket_host = '127.0.0.1'
-        self.socket_connection_enabled = 1 #SHOULD BE 0 BY DEFAULT WHEN GUI IS WORKING
+        self.socket_connection_enabled = 0
+        self.new_target = 0
 
         #Data required to create serial connection:
-        self.serial_port_addr = '/dev/ttyUSB0'
+        self.serial_port_addr = '/dev/ttyACM0'
         self.serial_port_baudrate = 9600
-        self.serial_connection_enabled = 1  #SHOULD BE 0 BY DEFAULT WHEN GUI IS WORKING
+        self.serial_connection_enabled = 0 
+        self.serial_msg_queue = []
 
         #is there currently a connection to Gpredict?
         self.gpredict_connection = 0
         #is there currently a connection to the serial port?
-        self.serial_connection = 0    
+        self.serial_connection = 0 
+
+        #Contains the list of state variables 
+        self.state_variables = {"Emergency Stop" : 0, "CCW Rotating" : 0, "CW Rotating" : 0,
+                                            "Temperature" : 0, "Spiral Search" : 1}
 
     def start_gui(self):
         #Start the gui. The gui main loop is the main thread.
         self.gui = gui_main.MainWindow(self)
-
-#THREADS WILL UPDATE INDEPENDENTLY
-
-    #def update(self):
-        #This will update the back end
-
-      #  try:
-      #      self.current_target = self.sockcon.update_data()
-       #     self.sercon.update_data()
-        #except:
-         #   print("ERROR: Could not update")
 
     def create_socket_send_string(self):
         #Uses current_position to create a string in byte form that is sent to gpredict
@@ -83,5 +78,5 @@ class CoreInfo:
         self.serial_connection_enabled = 1
     
     def stop_serial_connection(self):
-        self.socket_connection_enabled = 0
+        self.serial_connection_enabled = 0
         self.ser_thread.join()

@@ -24,7 +24,7 @@ def extract_az_el_from_string(input_string):
     ind_end = input_string.find(" ")
     el = float(input_string[ind_begin:])
 
-    return (az, el)
+    return [az, el]
 
 def az_el_to_string(input_pair):
 
