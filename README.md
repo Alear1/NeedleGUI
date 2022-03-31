@@ -1,26 +1,38 @@
 # NeedleGUI
 
-Components:
+Inputs:
 - start/stop gpredict connection
 - start/stop arduino connection
-
-- Target from Gpredict az & el
-- Position from Arduino  az & el
 - Manual offset az & el
-
+- Gpredict connection port
+- Serial connection address
 - set current position as x & y, az & el
 - one az rotation CCW
 - one az rotation CW
-
 - Spiral search tool
 - Emergency Stop
 - Turn motors off
 
+Displays:
+- Gpredict connection state
+- Serial connection state
+- Gpredict connection port
+- Serial connection address
+- Target from Gpredict az & el
+- Position from Arduino  az & el
+- Manual offset az & el
+- set current position as x & y, az & el
+- currently rotating CCW
+- currently rotating CW
+- emergency stopped
+- motors off
 
-Possible:
+Possible Functions:
 - Set motor speed
 - Set motor control type
-- Temperature
+- Temperature output
+- Calibrate
+- 
 
 
 To add a new state variable to the list:
