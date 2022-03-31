@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>649</width>
-    <height>287</height>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,13 +47,16 @@
     <property name="geometry">
      <rect>
       <x>250</x>
-      <y>-10</y>
+      <y>10</y>
       <width>131</width>
-      <height>61</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>NEEDLEGUI_V1</string>
+     <string>NEEDLEGUI V1</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="gpredict_connected_label">
@@ -169,6 +172,9 @@
       <height>38</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLineEdit" name="raw_pos_el">
     <property name="geometry">
@@ -178,6 +184,41 @@
       <width>113</width>
       <height>38</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stop_btn">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>240</y>
+      <width>231</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EMERGENCY STOP</string>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stop_label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>280</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>STOPPED</string>
     </property>
    </widget>
   </widget>

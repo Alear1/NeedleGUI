@@ -7,7 +7,6 @@
 import socket
 import misc_tools
 import threading
-import weakref
 import time
 
 class SocketGrabber:
@@ -59,6 +58,7 @@ class SocketGrabber:
         try:
             if data[0] == "P":
                 #New target given
+                self.parent.new_target = 1
 
                 #Remove command char:
                 data = data[2:]
