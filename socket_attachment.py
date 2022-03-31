@@ -1,14 +1,30 @@
 #Attaching the socket
 #THIS IS GOING TO HAVE TO GO INTO ANOTHER THREAD(MAYBE)
+#https://realpython.com/python-sockets/
+
+#TODO: Add timeout or cancellation to gpredict connection
 
 import socket
+import misc_tools
+import threading
+import weakref
+import time
 
 class SocketGrabber:
 
-    def __init__(self, port=4533, host='127.0.0.1'):
+    def __init__(self, parent, port=4533, host='127.0.0.1', verbose=0):
+        super(SocketGrabber, self).__init__()
         
+        self.parent = parent
         self.PORT = port
         self.HOST = host
+
+        self.verbose = verbose
+
+        self.rec_data = None
+        self.exit_flag = 0
+
+    def blocking_recv(self):
 
         print("Starting TCP socket on address", self.PORT)
 
@@ -17,48 +33,84 @@ class SocketGrabber:
             self.socket.bind((self.HOST, self.PORT))
         except:
             print("Error starting socket in socket_attachment")
-
+            return 0
+        
         try:
             print("Listening for GPredict connection")
             self.socket.listen()
             self.conn, self.addr = self.socket.accept()
-        except:
-            print("Error listening for socket")
-
-    def blocking_recv(self):
-        try:
+            print("Starting attempt")
             with self.conn:
                 print("Connected by", self.addr)
-                while True:
+                while True and not self.exit_flag and self.parent.socket_connection_enabled:
                     data = self.conn.recv(4096)
-                    print(data)
+                    #print(data)
                     if not data:
                         break
-                    self.conn.sendall(b'AZ123.4 EL56.7')
+                    self.conn.sendall(self.parent.create_socket_send_string())
+                    self.parse_data(data)
+                    #print(self.parent.create_socket_send_string())
+                self.close_connection()
         except:
             print("Error creating connection")
-    
-    def start_nonblocking(self):
-        
-        self.rec_data = self.conn.recv(4096)
-        if not self.rec_data:
-            print("Error establishing Gpredict connection")
-            self.close_connection()
-        else:
-            print("Connected by", self.addr)
 
-    def read_data(self, verbose=False):
-        self.rec_data = self.conn.recv(4096)
+    def parse_data(self, input_data):
+        data = input_data.decode("UTF-8")
+        try:
+            if data[0] == "P":
+                #New target given
 
-        if verbose:
-            print(self.rec_data)
-        else:
-            return self.rec_data
+                #Remove command char:
+                data = data[2:]
+                #find first space:
+                index = data.index(" ")
+                #extract AZ target data
+                self.parent.raw_target[0] = float(data[0:index])
+                #remove az data:
+                data = data[index + 1:]
+                self.parent.raw_target[1] = float(data)
+        except:
+            self.parent.raw_target[1] = 0
+            print("ERROR in parse_data")
+
+
+    def write_data(self, output_string):
+        #Sends data to gpredict over socket
+        try:
+            self.conn.sendall(bytes(output_string, 'utf-8'))
+            return 1
+        except:
+            print("Error writing data")
+            return 0
 
     def close_connection(self):
         print("Closing Gpredict connection")
         try:
             self.conn.close()
             self.socket.close()
+            self.parent.socket_connection_enabled = 0
+
         except:
             print("Error closing Gpredict connection")
+
+    def update_data(self, POSITION):
+        #Read current target data from gpredict and send current position data
+        #Returns target data
+
+        self.read_data()
+        self.write_data()
+        return self.rec_data
+
+class SocketThread(threading.Thread):
+    def __init__(self, threadID, name, counter, socket):
+        super(SocketThread, self).__init__()
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+        self.exit_flag = 0
+        self.sock = socket
+    
+    def run(self):
+        print ("Starting " + self.name)
+        self.sock.blocking_recv()
+        print ("Exiting " + self.name)
