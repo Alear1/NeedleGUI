@@ -19,6 +19,7 @@ Possible:
 -Set motor speed
 -Set motor control type
 -temperature
+-Emergency Stop
 
 To add a new state variable to the list:
 -Create a new button/value/whatever in the designer
