@@ -1,5 +1,4 @@
 #Attaching the socket
-#THIS IS GOING TO HAVE TO GO INTO ANOTHER THREAD(MAYBE)
 #https://realpython.com/python-sockets/
 
 #TODO: Add timeout or cancellation to gpredict connection
@@ -7,7 +6,6 @@
 import socket
 import misc_tools
 import threading
-import weakref
 import time
 
 class SocketGrabber:
@@ -30,6 +28,7 @@ class SocketGrabber:
 
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.settimeout(5)
             self.socket.bind((self.HOST, self.PORT))
         except:
             print("Error starting socket in socket_attachment")
@@ -39,6 +38,7 @@ class SocketGrabber:
             print("Listening for GPredict connection")
             self.socket.listen()
             self.conn, self.addr = self.socket.accept()
+            self.socket.settimeout(None)
             print("Starting attempt")
             with self.conn:
                 print("Connected by", self.addr)
@@ -52,13 +52,14 @@ class SocketGrabber:
                     #print(self.parent.create_socket_send_string())
                 self.close_connection()
         except:
-            print("Error creating connection")
+            print("Gpredict connection timeout")
 
     def parse_data(self, input_data):
         data = input_data.decode("UTF-8")
         try:
             if data[0] == "P":
                 #New target given
+                self.parent.new_target = 1
 
                 #Remove command char:
                 data = data[2:]

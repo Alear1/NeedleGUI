@@ -24,8 +24,30 @@ def extract_az_el_from_string(input_string):
     ind_end = input_string.find(" ")
     el = float(input_string[ind_begin:])
 
-    return (az, el)
+    return [az, el]
 
-def az_el_to_string(input_pair):
+def add_coords(coord_1, coord_2):
+    # Takes a set of coordinates and returns sum of them together in az and el. 
+    # ex: coord_1 = [350, 5], coord_2 = [35, -10]   | output = [25, 0]
+    out_coord = [None, None]
+    try:
+        #First calculate az:
+        if coord_1[0] + coord_2[0] > 360:
+            out_coord[0] = coord_1[0] + coord_2[0] - 360
+        elif coord_1[0] + coord_2[0] < 0:
+            out_coord[0] = coord_1[0] + coord_2[0] + 360
+        else:
+            out_coord[0] = coord_1[0] + coord_2[0]
+        
+        #Calculate el:
+        if coord_1[1] + coord_2[1] > 90:
+            out_coord[1] = 90
+        elif coord_1[1] + coord_2[1] < 0:
+            out_coord[1] = 0
+        else:
+            out_coord[1] = coord_1[1] + coord_2[1]
 
-    return 
+        return out_coord
+    except:
+        print("ERROR: coordinates could not be added")
+        return [0, 0]
