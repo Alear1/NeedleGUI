@@ -23,7 +23,6 @@ class CoreInfo:
         self.socket_addr = 4533
         self.socket_host = '127.0.0.1'
         self.socket_connection_enabled = 1 #SHOULD BE 0 BY DEFAULT WHEN GUI IS WORKING
-        self.socket_send_string = self.create_socket_send_string()
 
         #Data required to create serial connection:
         self.serial_port_addr = '/dev/ttyUSB0'
@@ -38,7 +37,6 @@ class CoreInfo:
     def start_gui(self):
         #Start the gui. The gui main loop is the main thread.
         self.gui = gui_main.MainWindow(self)
-        self.gui.window_loop()
 
 #THREADS WILL UPDATE INDEPENDENTLY
 
@@ -54,8 +52,9 @@ class CoreInfo:
     def create_socket_send_string(self):
         #Uses current_position to create a string in byte form that is sent to gpredict
         try:
-            out_string = "AZ" + str(self.current_position[0]) + "EL" + str(self.current_position[1])
-            out_string = out_string.encode('UTF-8')
+            #out_string = "AZ" + str(self.current_position[0]) + " EL" + str(self.current_position[1])
+            #out_string = out_string.encode('UTF-8')
+            out_string = b"p 12.30 4.50\x0a"
             return out_string
         except:
             print("ERROR CREATING SOCKET STRING")
@@ -68,6 +67,9 @@ class CoreInfo:
         self.sock_thread = socket_attachment.SocketThread(1, "Socket-Thread", 1, self.sockcon)
         self.sock_thread.start()
         self.socket_connection_enabled = 1
+
+    def stop_gpredict_socket(self):
+        self.socket_connection_enabled = 0
         self.sock_thread.join()
 
         #To close the socket set self.socket_connection_enabled = 0. Socket closes itself
@@ -79,4 +81,7 @@ class CoreInfo:
         self.ser_thread = serial_connector.SerialThread(2, "Serial-Thread", 2, self.sercon)
         self.ser_thread.start()
         self.serial_connection_enabled = 1
+    
+    def stop_serial_connection(self):
+        self.socket_connection_enabled = 0
         self.ser_thread.join()

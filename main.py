@@ -6,16 +6,16 @@
 
 #All the active data will get held onto by the datahandler  landline error
 
+#http://www.w1npp.org/events/2010/2010-f~1/SATELL~1/GPREDI~1.PDF
+
 import data_handler
-import gui_main
-import serial_connector #REMOVE LATER
-import socket_attachment #REMOVE LATER
 
 if __name__ == "__main__":
     
     #Start the gui and initialize the data handler
     print("Starting NeedleGUI")
     core_info = data_handler.CoreInfo()
+    core_info.start_gui()
     print("Exiting NeedleGUI. Goodbye!")
     #Testing Both:
     #core_info.start_gpredict_socket()

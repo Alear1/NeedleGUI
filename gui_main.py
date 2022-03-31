@@ -1,22 +1,54 @@
 #GUI handler for NeedleGUI using tkinter
-#https://www.tutorialsteacher.com/python/create-gui-using-tkinter-python
 
-import threading
+#To generate python file from .ui: pyuic5 -x test_ui_form.ui -o test.py
+
+
 import weakref
 import time
+import test
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class MainWindow:
     def __init__(self, parent):
         #Initialize all the required stuff for QT here
 
-        self.parent = weakref.ref(parent)   #This is the data handler object
+        self.parent = parent #This is the data handler object
+            
+        self.app = QtWidgets.QApplication(sys.argv)
+        self.MainWindow = QtWidgets.QMainWindow()
+        self.ui = test.Ui_MainWindow()
+        self.ui.setupUi(self.MainWindow)
+        self.MainWindow.show()
         
+        self.ui.gpredict_btn.clicked.connect(self.gpredict_btn_clicked)
+        self.ui.serial_btn.clicked.connect(self.serial_btn_clicked)
+        self.ui.label_2.hide()
+
+        self.update_timer = QtCore.QTimer()
+        self.update_timer.timeout.connect(self.update_gui_elements)
+        self.update_timer.start(1000)
+
+        sys.exit(self.app.exec_())
         #Examples:
-        self.window.title('NeedleGUI')
-        self.window.geometry("600x600")
-        self.window.resizable(False, False)
-        self.draw_statics()
+
+    def update_gui_elements(self):
+        #Updates all labels/values/etc every 1 second
+
+        #Raw target update
+        self.ui.raw_target_az.setText(str(self.parent.raw_target[0]))
+        self.ui.raw_target_el.setText(str(self.parent.raw_target[1]))
+
+    def gpredict_btn_clicked(self):
+        #when gpredict button has been clicked:
+        self.parent.start_gpredict_socket()
+        self.ui.label_2.show()
     
+    def serial_btn_clicked(self):
+        self.parent.stop_gpredict_socket()
+        self.ui.label_2.hide()
+
     def window_loop(self):
         #This is where the main loop of the window lives
         while True: #This should end up being while alive or sth like that
