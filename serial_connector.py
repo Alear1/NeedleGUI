@@ -63,8 +63,12 @@ class SerialHandler:
         while self.parent.serial_connection_enabled and self.ser.is_open:
             if len(self.parent.serial_msg_queue) > 0:
                 self.send_data(self.parent.serial_msg_queue[0]) #send 0th element in message queue
+                if self.parent.serial_msg_queue[0][0] == "p" or self.parent.serial_msg_queue[0][0] == "S":
+                    rx_data = None
+                else:
+                     rx_data = self.read_data() #read data from serial connection if there is a response
                 self.parent.serial_msg_queue.pop(0) #remove 0th element in message queue
-                rx_data = self.read_data() #read data from serial connection if there is a response
+            
                 if rx_data is not None:
                     rx_data = rx_data.decode("UTF-8")
                     #The only thing that the gui will receive from the serial connection will be position or state information

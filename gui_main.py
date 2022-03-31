@@ -59,7 +59,7 @@ class MainWindow:
         #send current target to Arduino if target set command sent from gpredict:
         if self.parent.new_target:
             self.parent.new_target = 0
-            self.parent.serial_msg_queue.append("P " + str(self.parent.raw_target[0]) + " " + str(self.parent.raw_target[1]))
+            self.parent.serial_msg_queue.append("P " + str(self.parent.current_target[0]) + " " + str(self.parent.current_target[1]))
         
     def start_gpredict(self):
         #when gpredict button has been clicked:

@@ -3,8 +3,7 @@
 import serial_connector
 import socket_attachment
 import gui_main
-import threading
-import os
+import misc_tools
 
 class CoreInfo:
     def __init__(self):
@@ -15,9 +14,11 @@ class CoreInfo:
         self.raw_position = [0, 0]
         self.manual_target_offset = [0,0]
         self.manual_position_offset = [0, 0]
+        self.auto_offset = [0, 0]
 
-        self.current_target = self.raw_target + self.manual_target_offset
-        self.current_position = self.raw_position + self.manual_position_offset
+        self.current_target = misc_tools.add_coords(self.raw_target, self.manual_target_offset) #Need to add auto offset to this
+
+        self.current_position = self.raw_position + self.manual_position_offset #Change??
         
         #Data required to create gpredict connection:
         self.socket_addr = 4533
