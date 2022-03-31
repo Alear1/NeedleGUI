@@ -12,6 +12,7 @@ Inputs:
 - Spiral search tool
 - Emergency Stop
 - Turn motors off
+- Manual Serial message input
 
 Displays:
 - Gpredict connection state
