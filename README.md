@@ -24,6 +24,7 @@ Displays:
 - set current position as x & y, az & el
 - currently rotating CCW
 - currently rotating CW
+- currently spiral searching
 - emergency stopped
 - motors off
 
