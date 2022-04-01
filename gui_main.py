@@ -123,6 +123,7 @@ class MainWindow:
         self.parent.serial_port_addr = self.ui.serial_port_input.text()
 
     def raw_target_reset(self):
+        self.parent.new_target = 1
         self.parent.raw_target = [0, 0]
         self.ui.raw_tgt_az_label.setText("{:05.1f}".format(self.parent.raw_target[0]))
         self.ui.raw_tgt_el_label.setText("{:04.1f}".format(self.parent.raw_target[1]))
