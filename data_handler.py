@@ -27,7 +27,7 @@ class CoreInfo:
         self.new_target = 0
 
         #Data required to create serial connection:
-        self.serial_port_addr = '/dev/ttyACM0'
+        self.serial_port_addr = '/dev/ttyUSB0'
         self.serial_port_baudrate = 9600
         self.serial_connection_enabled = 0 
         self.serial_msg_queue = []
@@ -39,7 +39,7 @@ class CoreInfo:
 
         #Contains the list of state variables 
         self.state_variables = {"Emergency Stop" : 0, "CCW Rotating" : 0, "CW Rotating" : 0,
-                                            "Temperature" : 0, "Spiral Search" : 1}
+                                            "Temperature" : 0, "Spiral Search" : 0}
 
     def start_gui(self):
         #Start the gui. The gui main loop is the main thread.
@@ -81,3 +81,6 @@ class CoreInfo:
     def stop_serial_connection(self):
         self.serial_connection_enabled = 0
         self.ser_thread.join()
+    
+    def update_current_target(self):
+        self.current_target = misc_tools.add_coords(self.raw_target, self.manual_target_offset) #Need to add auto offset to this

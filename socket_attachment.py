@@ -28,7 +28,7 @@ class SocketGrabber:
 
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.settimeout(5)
+            self.socket.settimeout(60)
             self.socket.bind((self.HOST, self.PORT))
         except:
             print("Error starting socket in socket_attachment")
@@ -42,6 +42,7 @@ class SocketGrabber:
             print("Starting attempt")
             with self.conn:
                 print("Connected by", self.addr)
+                self.parent.gpredict_connection = 1
                 while True and not self.exit_flag and self.parent.socket_connection_enabled:
                     data = self.conn.recv(4096)
                     #print(data)
@@ -53,6 +54,8 @@ class SocketGrabber:
                 self.close_connection()
         except:
             print("Gpredict connection timeout")
+            self.parent.gpredict_connection = 0
+            self.parent.socket_connection_enabled = 0
 
     def parse_data(self, input_data):
         data = input_data.decode("UTF-8")
@@ -90,6 +93,7 @@ class SocketGrabber:
             self.conn.close()
             self.socket.close()
             self.parent.socket_connection_enabled = 0
+            self.parent.gpredict_connection = 0
 
         except:
             print("Error closing Gpredict connection")
