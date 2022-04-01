@@ -4,7 +4,7 @@
 #Data to/from gpredict will come through socket_attachment to the datahandler
 #Data to/from the arduino will come through serial_connector to the datahandler
 
-#All the active data will get held onto by the datahandler  landline error
+#All the active data will get held onto by the datahandler
 
 #http://www.w1npp.org/events/2010/2010-f~1/SATELL~1/GPREDI~1.PDF
 

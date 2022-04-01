@@ -37,6 +37,8 @@ class SerialHandler:
                 raise Exception()
         except:
             print("Error opening serial connection")
+            self.parent.serial_connection = 0
+            self.parent.serial_connection_enabled  = 0
             return 0
 
     def close_connection(self):
@@ -45,6 +47,7 @@ class SerialHandler:
             print("WARNING: SERIAL CONNECTION NOT CLOSED")
         else:
             self.parent.serial_connection_enabled = 0
+            self.parent.serial_connection = 0
             print("Serial connection closed")
 
     def manual_input(self):
@@ -58,33 +61,36 @@ class SerialHandler:
     def comm_loop(self):
         #Loop that the serial thread sits in. loops until it gets a message in the serial_msg_queue
         #Once a message is in the serial_msg_queue it will send over serial. Waits for response from arduino
-        
+        self.parent.serial_connection = 1
         rx_data = None
         while self.parent.serial_connection_enabled and self.ser.is_open:
-            if len(self.parent.serial_msg_queue) > 0:
-                self.send_data(self.parent.serial_msg_queue[0]) #send 0th element in message queue
-                if self.parent.serial_msg_queue[0][0] == "p" or self.parent.serial_msg_queue[0][0] == "S":
-                    rx_data = None
-                else:
-                     rx_data = self.read_data() #read data from serial connection if there is a response
-                self.parent.serial_msg_queue.pop(0) #remove 0th element in message queue
-            
-                if rx_data is not None:
-                    rx_data = rx_data.decode("UTF-8")
-                    #The only thing that the gui will receive from the serial connection will be position or state information
-                    #print(rx_data)
-                    try:
-                        if rx_data[0] == "A":
-                            self.parent.raw_position = misc_tools.extract_az_el_from_string(rx_data)
-                        elif rx_data[0] == "S":
-                            self.parse_state(rx_data)
-                        else:
-                            print("WARNING: unrecognized response from connected serial device")
-                    except:
-                        print("ERROR: received null response from serial device")
+            try:
+                if len(self.parent.serial_msg_queue) > 0:
+                    self.send_data(self.parent.serial_msg_queue[0]) #send 0th element in message queue
+                    if self.parent.serial_msg_queue[0][2] != " " or self.parent.serial_msg_queue[0][0] == "S":
+                        rx_data = None
+                    else:
+                        rx_data = self.read_data() #read data from serial connection if there is a response
+                    self.parent.serial_msg_queue.pop(0) #remove 0th element in message queue
+                
+                    if rx_data is not None:
+                        rx_data = rx_data.decode("UTF-8")
+                        #The only thing that the gui will receive from the serial connection will be position or state information
+                        #print(rx_data)
+                        try:
+                            if rx_data[0] == "A":
+                                self.parent.raw_position = misc_tools.extract_az_el_from_string(rx_data)
+                            elif rx_data[0] == "S":
+                                self.parse_state(rx_data)
+                            else:
+                                print("WARNING: unrecognized response from connected serial device")
+                        except:
+                            print("ERROR: received null response from serial device")
 
-            time.sleep(0.001)
-        self.close_connection()        
+                time.sleep(0.001)
+            except:
+                self.close_connection()
+        self.close_connection()       
 
     def parse_state(self, data):
         #Parses and updates all the state variables
