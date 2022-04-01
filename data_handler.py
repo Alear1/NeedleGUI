@@ -16,8 +16,8 @@ class CoreInfo:
         self.manual_position_offset = [0, 0]
         self.auto_offset = [0, 0]
 
-        self.current_target = misc_tools.add_coords(self.raw_target, self.manual_target_offset) #Need to add auto offset to this
-
+        self.current_target = misc_tools.add_three_coords(self.raw_target, self.manual_target_offset, self.auto_offset)
+        
         self.current_position = self.raw_position + self.manual_position_offset #Change??
         
         #Data required to create gpredict connection:

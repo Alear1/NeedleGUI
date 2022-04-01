@@ -1,4 +1,4 @@
-#To generate python file from .ui: pyuic5 -x <form name> -o ui_form.py
+#To generate python file from .ui: pyuic5 -x NeedleGUI_ui_form_v1.ui -o ui_form.py
 
 import weakref
 import time
@@ -26,7 +26,9 @@ class MainWindow:
         self.ui.serial_port_input.setText(self.parent.serial_port_addr)
         self.ui.gpredict_port_input.textChanged.connect(self.gpredict_port_update) 
         self.ui.serial_port_input.textChanged.connect(self.serial_port_update)
-        #self.ui.stop_serial_btn.clicked.connect(self.stop_serial)
+
+        #Raw target reset button:
+        self.ui.raw_tgt_reset_btn.clicked.connect(self.raw_target_reset)
 
         #manual offset:
         self.ui.manual_offset_el_minus.hide()
@@ -119,6 +121,11 @@ class MainWindow:
     
     def serial_port_update(self):
         self.parent.serial_port_addr = self.ui.serial_port_input.text()
+
+    def raw_target_reset(self):
+        self.parent.raw_target = [0, 0]
+        self.ui.raw_tgt_az_label.setText("{:05.1f}".format(self.parent.raw_target[0]))
+        self.ui.raw_tgt_el_label.setText("{:04.1f}".format(self.parent.raw_target[1]))
 
     def man_bt_1(self): #Could probably use a generator of some kind to generate these functions
         self.manual_update_az(100)
