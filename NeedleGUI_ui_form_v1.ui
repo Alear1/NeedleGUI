@@ -37,62 +37,1070 @@
   <property name="locale">
    <locale language="English" country="Canada"/>
   </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGroupBox" name="spiral_search">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>90</y>
-      <width>251</width>
-      <height>181</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Spiral Search Tool</string>
-    </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>9</x>
-       <y>30</y>
-       <width>231</width>
-       <height>141</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="search_button">
-        <property name="text">
-         <string>Start Search</string>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="speed_input">
+   <layout class="QGridLayout" name="gridLayout_6">
+    <item row="0" column="2" rowspan="4">
+     <widget class="QGroupBox" name="connections">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Connections</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0" colspan="2">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="2" column="0">
+          <widget class="QLabel" name="gpredict_port_label">
+           <property name="text">
+            <string>Gpredict Port</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="gstate_label">
+           <property name="text">
+            <string>Gpredict State:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="serial_label">
+           <property name="text">
+            <string>Serial State:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="serial_port_input"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="gpredict_state_str">
+           <property name="text">
+            <string>Disconnected</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="serial_port_label">
+           <property name="text">
+            <string>Serial Port</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="gpredict_port_input"/>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="serial_state_str">
+           <property name="text">
+            <string>Disconnected</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="gpredict_connect_btn">
+           <property name="text">
+            <string>Open Gpredict Connection</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="serial_connect_btn">
+           <property name="text">
+            <string>Open Serial Connection</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="4">
+     <widget class="QGroupBox" name="spiral_search">
+      <property name="title">
+       <string>Spiral Search Tool</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>30</y>
+         <width>231</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="2" column="0">
+           <widget class="QLabel" name="resolution_label">
+            <property name="text">
+             <string>Resolution</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="resolution_input">
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="speed_input">
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="speed_label">
+            <property name="text">
+             <string>Speed</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="search_button">
+            <property name="text">
+             <string>Start Search</string>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="searching_label">
           <property name="text">
-           <string>1</string>
+           <string>SPIRAL SEARCHING</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="7" column="0" rowspan="4">
+     <widget class="QGroupBox" name="motor_state">
+      <property name="title">
+       <string>Motor State</string>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>231</width>
+         <height>80</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="1" column="1">
+         <widget class="QPushButton" name="enabled_state_el_btn">
+          <property name="text">
+           <string>Disable EL</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="resolution_label">
+         <widget class="QPushButton" name="enabled_state_az_btn">
           <property name="text">
-           <string>Resolution</string>
+           <string>Disable AZ</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="enabled_state_az_label">
+          <property name="text">
+           <string>Azimuth Enabled</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="enabled_state_el_label">
+          <property name="text">
+           <string>Eleveation Enabled</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QPushButton" name="emergency_stop_btn">
+      <property name="minimumSize">
+       <size>
+        <width>10</width>
+        <height>160</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>EMERGENCY STOP</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" rowspan="10">
+     <widget class="QGroupBox" name="coordinate_viewer">
+      <property name="title">
+       <string>Coordinate Viewer</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="4" colspan="6">
+        <widget class="QLabel" name="coord_viewer_az_label">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string>AZIMUTH</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::NoTextInteraction</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="12">
+        <widget class="QPushButton" name="el_offset_tendn_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↓</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="16">
+        <layout class="QHBoxLayout" name="manual_offset_layout">
+         <item>
+          <widget class="QLabel" name="manual_offset_label">
+           <property name="maximumSize">
+            <size>
+             <width>123</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>MANUAL OFFSET:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="manual_offset_az_minus">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>55</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="manual_offset_az_label">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>55</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>000.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="manual_offset_el_minus">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>55</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="manual_offset_el_label">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>115</width>
+             <height>55</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>00.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0" colspan="16">
+        <layout class="QHBoxLayout" name="raw_pos_layout">
+         <item>
+          <widget class="QLabel" name="raw_pos_label">
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>RAW POSITION:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignHCenter|Qt::AlignTop</set>
+           </property>
+           <property name="margin">
+            <number>8</number>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="raw_pos_az_label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="midLineWidth">
+            <number>10</number>
+           </property>
+           <property name="text">
+            <string>000.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="raw_pos_el_label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>00.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="8" column="0" colspan="16">
+        <layout class="QHBoxLayout" name="sent_tgt_layout">
+         <item>
+          <widget class="QLabel" name="sent_tgt_label">
+           <property name="maximumSize">
+            <size>
+             <width>108</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>SENT TARGET:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="sent_tgt_az_label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>000.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="sent_tgt_el_label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>00.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0" colspan="16">
+        <layout class="QHBoxLayout" name="auto_offset_layout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="auto_offset_label">
+           <property name="maximumSize">
+            <size>
+             <width>130</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>AUTOMATIC OFFSET:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="auto_offset_az_minus">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>25</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <property name="indent">
+            <number>0</number>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="auto_offset_az_label">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>115</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>000.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="auto_offset_el_minus">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="auto_offset_el_label">
+           <property name="maximumSize">
+            <size>
+             <width>115</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>00.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0" colspan="16">
+        <layout class="QHBoxLayout" name="raw_tgt_layout">
+         <item>
+          <widget class="QLabel" name="raw_tgt_label">
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>RAW TARGET:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignHCenter|Qt::AlignTop</set>
+           </property>
+           <property name="margin">
+            <number>7</number>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="raw_tgt_az_label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>000.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="raw_tgt_el_label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>00.0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::NoTextInteraction</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="7" column="9">
+        <widget class="QPushButton" name="az_offset_tenthdn_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↓</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="14">
+        <widget class="QPushButton" name="el_offset_tenthup_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="7">
+        <widget class="QPushButton" name="az_offset_tendn_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↓</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="8">
+        <widget class="QPushButton" name="az_offset_onedn_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↓</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="6">
+        <widget class="QPushButton" name="az_offset_hundredup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="6">
+        <widget class="QPushButton" name="az_offset_hundreddn_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↓</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="9">
+        <widget class="QPushButton" name="az_offset_tenthup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="12">
+        <widget class="QPushButton" name="el_offset_tenup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="13">
+        <widget class="QPushButton" name="el_offset_oneup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="13">
+        <widget class="QPushButton" name="el_offset_onedn_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↓</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="8">
+        <widget class="QPushButton" name="az_offset_tenup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="14">
+        <widget class="QPushButton" name="el_offset_tenthdn_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↓</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="7">
+        <widget class="QPushButton" name="az_offset_oneup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="11" colspan="5">
+        <widget class="QLabel" name="coord_viewer_el_label">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string>ELEVATION</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::NoTextInteraction</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+      <widget class="QPushButton" name="auto_offset_reset_btn">
+       <property name="geometry">
+        <rect>
+         <x>25</x>
+         <y>147</y>
+         <width>90</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>RESET</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="raw_tgt_reset_btn">
+       <property name="geometry">
+        <rect>
+         <x>25</x>
+         <y>87</y>
+         <width>90</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>RESET</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="gs_connected_label">
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>GS CONTROLLER NOT CONNECTED</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2" rowspan="2">
+     <widget class="QGroupBox" name="unwind">
+      <property name="title">
+       <string>Unwind Tool</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QPushButton" name="unwind_ccw_btn">
+           <property name="text">
+            <string>CCW Unwind</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="unwind_cw_btn">
+           <property name="text">
+            <string>CW Unwind</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="unwind_stop_btn">
+         <property name="text">
+          <string>STOP</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="0" rowspan="3">
+     <widget class="QGroupBox" name="position_override">
+      <property name="toolTip">
+       <string>Click &quot;Override&quot; to set the onboard position to the value in the input box</string>
+      </property>
+      <property name="title">
+       <string>Position Override</string>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>231</width>
+         <height>80</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="override_az_label">
+          <property name="text">
+           <string>Azimuth:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="speed_label">
+        <item row="0" column="2">
+         <widget class="QPushButton" name="override_az_btn">
           <property name="text">
-           <string>Speed</string>
+           <string>Override</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="override_az_input">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="override_el_label">
+          <property name="text">
+           <string>Elevation:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -100,1055 +1108,24 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="resolution_input">
+         <widget class="QLineEdit" name="override_el_input">
           <property name="text">
-           <string>1</string>
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="override_el_btn">
+          <property name="text">
+           <string>Override</string>
           </property>
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="searching_label">
-        <property name="text">
-         <string>SPIRAL SEARCHING</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="emergency_stop_btn">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>251</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>EMERGENCY STOP</string>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="connections">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>0</y>
-      <width>271</width>
-      <height>281</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Connections</string>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>251</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="gstate_label">
-        <property name="text">
-         <string>Gpredict State:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="gpredict_port_label">
-        <property name="text">
-         <string>Gpredict Port</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="gpredict_state_str">
-        <property name="text">
-         <string>Disconnected</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="serial_state_str">
-        <property name="text">
-         <string>Disconnected</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="serial_label">
-        <property name="text">
-         <string>Serial State:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="serial_port_label">
-        <property name="text">
-         <string>Serial Port</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="serial_port_input"/>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="gpredict_port_input"/>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>190</y>
-       <width>251</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QPushButton" name="gpredict_connect_btn">
-        <property name="text">
-         <string>Open Gpredict Connection</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="serial_connect_btn">
-        <property name="text">
-         <string>Open Serial Connection</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="coordinate_viewer">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>30</y>
-      <width>531</width>
-      <height>531</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Coordinate Viewer</string>
-    </property>
-    <widget class="QWidget" name="horizontalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>-40</x>
-       <y>130</y>
-       <width>561</width>
-       <height>87</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="raw_tgt_layout">
-      <item>
-       <widget class="QLabel" name="raw_tgt_label">
-        <property name="text">
-         <string>RAW TARGET:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="raw_tgt_az_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>000.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="raw_tgt_el_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>00.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>-40</x>
-       <y>50</y>
-       <width>561</width>
-       <height>87</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="raw_pos_layout">
-      <item>
-       <widget class="QLabel" name="raw_pos_label">
-        <property name="text">
-         <string>RAW POSITION:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="raw_pos_az_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="midLineWidth">
-         <number>10</number>
-        </property>
-        <property name="text">
-         <string>000.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="raw_pos_el_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>00.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QLabel" name="coord_viewer_az_label">
-     <property name="geometry">
-      <rect>
-       <x>146</x>
-       <y>30</y>
-       <width>171</width>
-       <height>411</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string>AZIMUTH</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignHCenter|Qt::AlignTop</set>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="coord_viewer_el_label">
-     <property name="geometry">
-      <rect>
-       <x>346</x>
-       <y>30</y>
-       <width>151</width>
-       <height>411</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string>ELEVATION</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignHCenter|Qt::AlignTop</set>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
-     </property>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>-40</x>
-       <y>420</y>
-       <width>561</width>
-       <height>87</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="sent_tgt_layout">
-      <item>
-       <widget class="QLabel" name="sent_tgt_label">
-        <property name="text">
-         <string>SENT TARGET:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="sent_tgt_az_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>000.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="sent_tgt_el_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>00.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_4">
-     <property name="geometry">
-      <rect>
-       <x>-40</x>
-       <y>210</y>
-       <width>561</width>
-       <height>87</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="auto_offset_layout">
-      <item>
-       <widget class="QLabel" name="auto_offset_label">
-        <property name="text">
-         <string>AUTOMATIC OFFSET:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="auto_offset_az_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>000.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="auto_offset_el_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>00.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_5">
-     <property name="geometry">
-      <rect>
-       <x>-40</x>
-       <y>330</y>
-       <width>561</width>
-       <height>87</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="manual_offset_layout">
-      <item>
-       <widget class="QLabel" name="manual_offset_label">
-        <property name="text">
-         <string>MANUAL OFFSET:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="manual_offset_az_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>000.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="manual_offset_el_label">
-        <property name="font">
-         <font>
-          <family>Ani</family>
-          <pointsize>48</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>00.0</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QPushButton" name="az_offset_hundredup_btn">
-     <property name="geometry">
-      <rect>
-       <x>176</x>
-       <y>320</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="az_offset_tenup_btn">
-     <property name="geometry">
-      <rect>
-       <x>206</x>
-       <y>320</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="az_offset_oneup_btn">
-     <property name="geometry">
-      <rect>
-       <x>236</x>
-       <y>320</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="az_offset_tenthup_btn">
-     <property name="geometry">
-      <rect>
-       <x>276</x>
-       <y>320</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="el_offset_tenup_btn">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>320</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="el_offset_oneup_btn">
-     <property name="geometry">
-      <rect>
-       <x>410</x>
-       <y>320</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="el_offset_tenthup_btn">
-     <property name="geometry">
-      <rect>
-       <x>446</x>
-       <y>320</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↑</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="az_offset_hundreddn_btn">
-     <property name="geometry">
-      <rect>
-       <x>176</x>
-       <y>400</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↓</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="az_offset_tendn_btn">
-     <property name="geometry">
-      <rect>
-       <x>206</x>
-       <y>400</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↓</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="az_offset_onedn_btn">
-     <property name="geometry">
-      <rect>
-       <x>236</x>
-       <y>400</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↓</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="az_offset_tenthdn_btn">
-     <property name="geometry">
-      <rect>
-       <x>276</x>
-       <y>400</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↓</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="el_offset_tendn_btn">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>400</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↓</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="el_offset_onedn_btn">
-     <property name="geometry">
-      <rect>
-       <x>410</x>
-       <y>400</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↓</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="el_offset_tenthdn_btn">
-     <property name="geometry">
-      <rect>
-       <x>446</x>
-       <y>400</y>
-       <width>21</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>↓</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="auto_offset_reset_btn">
-     <property name="geometry">
-      <rect>
-       <x>46</x>
-       <y>270</y>
-       <width>90</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>RESET</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="manual_offset_el_minus">
-     <property name="geometry">
-      <rect>
-       <x>356</x>
-       <y>330</y>
-       <width>16</width>
-       <height>78</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Ani</family>
-       <pointsize>48</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>-</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="auto_offset_el_minus">
-     <property name="geometry">
-      <rect>
-       <x>356</x>
-       <y>210</y>
-       <width>16</width>
-       <height>78</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Ani</family>
-       <pointsize>48</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>-</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="auto_offset_az_minus">
-     <property name="geometry">
-      <rect>
-       <x>156</x>
-       <y>210</y>
-       <width>16</width>
-       <height>78</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Ani</family>
-       <pointsize>48</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>-</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="manual_offset_az_minus">
-     <property name="geometry">
-      <rect>
-       <x>151</x>
-       <y>330</y>
-       <width>16</width>
-       <height>78</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Ani</family>
-       <pointsize>48</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>-</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="raw_tgt_reset_btn">
-     <property name="geometry">
-      <rect>
-       <x>46</x>
-       <y>190</y>
-       <width>90</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>RESET</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="position_override">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>270</y>
-      <width>251</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Click &quot;Override&quot; to set the onboard position to the value in the input box</string>
-    </property>
-    <property name="title">
-     <string>Position Override</string>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>231</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QLabel" name="override_az_label">
-        <property name="text">
-         <string>Azimuth:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="override_az_btn">
-        <property name="text">
-         <string>Override</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="override_az_input">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="override_el_label">
-        <property name="text">
-         <string>Elevation:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="override_el_input">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="override_el_btn">
-        <property name="text">
-         <string>Override</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="unwind">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>280</y>
-      <width>271</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Unwind Tool</string>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>241</width>
-       <height>36</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="unwind_ccw_btn">
-        <property name="text">
-         <string>CCW Unwind</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="unwind_cw_btn">
-        <property name="text">
-         <string>CW Unwind</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QPushButton" name="unwind_stop_btn">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>70</y>
-       <width>88</width>
-       <height>34</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>STOP</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="motor_state">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>390</y>
-      <width>251</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Motor State</string>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>231</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="1" column="1">
-       <widget class="QPushButton" name="enabled_state_el_btn">
-        <property name="text">
-         <string>Disable EL</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="enabled_state_az_btn">
-        <property name="text">
-         <string>Disable AZ</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="enabled_state_az_label">
-        <property name="text">
-         <string>Azimuth Enabled</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="enabled_state_el_label">
-        <property name="text">
-         <string>Eleveation Enabled</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="gs_connected_label">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>10</y>
-      <width>511</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>GS CONTROLLER NOT CONNECTED</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1156,7 +1133,7 @@
      <x>0</x>
      <y>0</y>
      <width>1120</width>
-     <height>30</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
