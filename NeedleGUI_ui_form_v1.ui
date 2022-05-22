@@ -920,19 +920,6 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="8">
-        <widget class="QPushButton" name="az_offset_tenup_btn">
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>↑</string>
-         </property>
-        </widget>
-       </item>
        <item row="7" column="14">
         <widget class="QPushButton" name="el_offset_tenthdn_btn">
          <property name="maximumSize">
@@ -943,19 +930,6 @@
          </property>
          <property name="text">
           <string>↓</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="7">
-        <widget class="QPushButton" name="az_offset_oneup_btn">
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>↑</string>
          </property>
         </widget>
        </item>
@@ -972,6 +946,32 @@
          </property>
          <property name="textInteractionFlags">
           <set>Qt::NoTextInteraction</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="7">
+        <widget class="QPushButton" name="az_offset_tenup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="8">
+        <widget class="QPushButton" name="az_offset_oneup_btn">
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>↑</string>
          </property>
         </widget>
        </item>
