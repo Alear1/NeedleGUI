@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>802</width>
-    <height>821</height>
+    <height>797</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -64,14 +64,14 @@ border-color: rgb(110, 255, 0);</string>
               <number>0</number>
              </property>
              <item>
-              <widget class="QLabel" name="speed_label">
+              <widget class="QLabel" name="angular_spacing_label">
                <property name="font">
                 <font>
                  <family>Montserrat</family>
                 </font>
                </property>
                <property name="text">
-                <string>Speed</string>
+                <string>Angular Spacing</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -79,17 +79,15 @@ border-color: rgb(110, 255, 0);</string>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="speed_input">
-               <property name="font">
-                <font>
-                 <family>Montserrat</family>
-                </font>
+              <widget class="QSpinBox" name="angular_spacing_spinBox">
+               <property name="minimum">
+                <number>1</number>
                </property>
-               <property name="cursor">
-                <cursorShape>ArrowCursor</cursorShape>
+               <property name="maximum">
+                <number>100</number>
                </property>
-               <property name="text">
-                <string>Input Speed</string>
+               <property name="value">
+                <number>10</number>
                </property>
               </widget>
              </item>
@@ -116,17 +114,15 @@ border-color: rgb(110, 255, 0);</string>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="resolution_input">
-               <property name="font">
-                <font>
-                 <family>Montserrat</family>
-                </font>
+              <widget class="QSpinBox" name="resolution_spinBox">
+               <property name="minimum">
+                <number>1</number>
                </property>
-               <property name="cursor">
-                <cursorShape>IBeamCursor</cursorShape>
+               <property name="maximum">
+                <number>100</number>
                </property>
-               <property name="text">
-                <string>Input Resolution</string>
+               <property name="value">
+                <number>10</number>
                </property>
               </widget>
              </item>
@@ -474,81 +470,6 @@ border-color: rgb(110, 255, 0);</string>
          <string>Coordinate Viewer</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
-         <item row="4" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_19">
-           <item>
-            <widget class="QLabel" name="sent_tgt_label">
-             <property name="maximumSize">
-              <size>
-               <width>108</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Montserrat</family>
-              </font>
-             </property>
-             <property name="text">
-              <string>SENT TARGET:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::NoTextInteraction</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="sent_tgt_az_label">
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>36</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>000.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::NoTextInteraction</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="manual_offset_el_label">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>115</width>
-               <height>55</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Arial</family>
-               <pointsize>36</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>00.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::NoTextInteraction</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
          <item row="0" column="0">
           <widget class="QGroupBox" name="groupBox">
            <layout class="QFormLayout" name="formLayout_2">
@@ -582,7 +503,7 @@ border-color: rgb(110, 255, 0);</string>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="raw_tgt_reset_btn">
+               <widget class="QPushButton" name="auto_offset_reset_btn">
                 <property name="font">
                  <font>
                   <family>Montserrat</family>
@@ -687,7 +608,7 @@ border-color: rgb(110, 255, 0);</string>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="auto_offset_reset_btn">
+               <widget class="QPushButton" name="raw_tgt_reset_btn">
                 <property name="font">
                  <font>
                   <family>Montserrat</family>
@@ -978,7 +899,7 @@ border-color: rgb(110, 255, 0);</string>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_12">
                   <item>
-                   <widget class="QLabel" name="manual_offset_el_minus">
+                   <widget class="QLabel" name="manual_offset_az_minus">
                     <property name="maximumSize">
                      <size>
                       <width>20</width>
@@ -995,7 +916,7 @@ border-color: rgb(110, 255, 0);</string>
                      <string>-</string>
                     </property>
                     <property name="alignment">
-                     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::NoTextInteraction</set>
@@ -1187,7 +1108,7 @@ border-color: rgb(110, 255, 0);</string>
                      <number>9</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="manual_offset_az_minus">
+                     <widget class="QLabel" name="manual_offset_el_minus">
                       <property name="maximumSize">
                        <size>
                         <width>20</width>
@@ -1204,7 +1125,7 @@ border-color: rgb(110, 255, 0);</string>
                        <string>-</string>
                       </property>
                       <property name="alignment">
-                       <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+                       <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                       </property>
                       <property name="textInteractionFlags">
                        <set>Qt::NoTextInteraction</set>
@@ -1212,10 +1133,19 @@ border-color: rgb(110, 255, 0);</string>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="sent_tgt_el_label">
+                     <widget class="QLabel" name="manual_offset_el_label">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>115</width>
+                        <height>55</height>
+                       </size>
+                      </property>
                       <property name="font">
                        <font>
-                        <family>Helvetica</family>
+                        <family>Arial</family>
                         <pointsize>36</pointsize>
                        </font>
                       </property>
@@ -1303,6 +1233,78 @@ border-color: rgb(110, 255, 0);</string>
            </layout>
           </widget>
          </item>
+         <item row="4" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <widget class="QLabel" name="sent_tgt_label">
+             <property name="maximumSize">
+              <size>
+               <width>108</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Montserrat</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>SENT TARGET:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::NoTextInteraction</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="sent_tgt_az_label">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>36</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>000.0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::NoTextInteraction</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="sent_tgt_el_label">
+             <property name="maximumSize">
+              <size>
+               <width>115</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Helvetica</family>
+               <pointsize>36</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>00.0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="textInteractionFlags">
+              <set>Qt::NoTextInteraction</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
         </layout>
        </widget>
       </item>
@@ -1322,8 +1324,12 @@ border-color: rgb(110, 255, 0);</string>
             <height>16777215</height>
            </size>
           </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);</string>
+           <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(255, 0, 0);</string>
           </property>
           <property name="text">
            <string>EMERGENCY STOP</string>
@@ -1342,7 +1348,7 @@ border-color: rgb(110, 255, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>802</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

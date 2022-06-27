@@ -1,7 +1,9 @@
-#August Lear
+#August Lear & also Kieron von Buchstab sometimes
 #Jan 2022
 
 #Collection of useful tools
+
+from numpy import linspace,sin,cos,pi
 
 def strip_regex(input_string):
     #Takes a string with regex elements like \n \r and returns a clean string with those removed
@@ -30,27 +32,27 @@ def add_coords(coord_1, coord_2):
     # Takes a set of coordinates and returns sum of them together in az and el. 
     # ex: coord_1 = [350, 5], coord_2 = [35, -10]   | output = [25, 0]
     out_coord = [None, None]
-    try:
-        #First calculate az:
-        if coord_1[0] + coord_2[0] > 360:
-            out_coord[0] = coord_1[0] + coord_2[0] - 360
-        elif coord_1[0] + coord_2[0] < 0:
-            out_coord[0] = coord_1[0] + coord_2[0] + 360
-        else:
-            out_coord[0] = coord_1[0] + coord_2[0]
-        
-        #Calculate el:
-        if coord_1[1] + coord_2[1] > 90:
-            out_coord[1] = 90
-        elif coord_1[1] + coord_2[1] < 0:
-            out_coord[1] = 0
-        else:
-            out_coord[1] = coord_1[1] + coord_2[1]
+    # try:
+    #First calculate az:
+    if coord_1[0] + coord_2[0] > 360:
+        out_coord[0] = coord_1[0] + coord_2[0] - 360
+    elif coord_1[0] + coord_2[0] < 0:
+        out_coord[0] = coord_1[0] + coord_2[0] + 360
+    else:
+        out_coord[0] = coord_1[0] + coord_2[0]
+    
+    #Calculate el:
+    if coord_1[1] + coord_2[1] > 90:
+        out_coord[1] = 90
+    elif coord_1[1] + coord_2[1] < 0:
+        out_coord[1] = 0
+    else:
+        out_coord[1] = coord_1[1] + coord_2[1]
 
-        return out_coord
-    except:
-        print("ERROR: coordinates could not be added")
-        return [0, 0]
+    return out_coord
+    # except:
+    #     print("ERROR: coordinates could not be added")
+    #     return [0, 0]
 
 def add_three_coords(coord_1, coord_2, coord_3):
     # Takes a set of coordinates and returns sum of them together in az and el. 
@@ -77,3 +79,19 @@ def add_three_coords(coord_1, coord_2, coord_3):
     except:
         print("ERROR: coordinates could not be added")
         return [0, 0]
+
+def generate_ss_coords(resolution, angular_spacing):
+    end = 90 #How many circles you want
+    increment = 1/resolution
+    spacing = 0.00362528*angular_spacing #Distance between each line
+
+    factor = linspace(0,end*spacing,round(end/increment)); 
+    az_val = 360*factor*sin(2*pi*factor/spacing) #Fun math!
+    el_val = 360*factor*cos(2*pi*factor/spacing)
+    coords = []
+
+    for i in range(len(az_val)):
+        coord = [az_val[i], el_val[i]]
+        coords.append(coord)
+        
+    return coords
