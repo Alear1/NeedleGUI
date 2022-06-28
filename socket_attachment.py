@@ -28,7 +28,9 @@ class SocketGrabber:
 
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print('self.socket:', self.socket)
             self.socket.settimeout(60)
+            print('Host:', self.HOST, '|| Port:', self.PORT)
             self.socket.bind((self.HOST, self.PORT))
         except:
             print("Error starting socket in socket_attachment")
@@ -48,7 +50,7 @@ class SocketGrabber:
                     if not data:
                         break
                     self.conn.sendall(self.parent.create_socket_send_string())
-                    #print(self.parent.create_socket_send_string())
+                    self.parse_data(data)
                 self.close_connection()
         except:
             print("Gpredict connection timeout")

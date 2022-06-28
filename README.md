@@ -42,7 +42,7 @@ To add a new state variable to the list:
 - Create a function in gui_main.py that handles the button/value/whatever, and adds a new message to the serial_msg_queue
 - Connect the button to the function in the init of gui_main.py
 - Write the handler for the new message into the arduino, such that it outputs the correct order and values in the state string
-- Add the new state variable to the self.state_varables dict in data_handler.py. make sure the order is correct.
+- Add the new state variable to the self.state_variables dict in data_handler.py. make sure the order is correct.
 
 NOTE:
 You can send whatever messages you want to the arduino, but it will only ever respond with position or state strings
