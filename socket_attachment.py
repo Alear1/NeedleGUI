@@ -28,7 +28,9 @@ class SocketGrabber:
 
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print('self.socket:', self.socket)
             self.socket.settimeout(60)
+            print('Host:', self.HOST, '|| Port:', self.PORT)
             self.socket.bind((self.HOST, self.PORT))
         except:
             print("Error starting socket in socket_attachment")
@@ -45,12 +47,10 @@ class SocketGrabber:
                 self.parent.gpredict_connection = 1
                 while True and not self.exit_flag and self.parent.socket_connection_enabled:
                     data = self.conn.recv(4096)
-                    #print(data)
                     if not data:
                         break
                     self.conn.sendall(self.parent.create_socket_send_string())
                     self.parse_data(data)
-                    #print(self.parent.create_socket_send_string())
                 self.close_connection()
         except:
             print("Gpredict connection timeout")
@@ -63,20 +63,18 @@ class SocketGrabber:
             if data[0] == "P":
                 #New target given
                 self.parent.new_target = 1
-
                 #Remove command char:
-                data = data[2:]
+                data = data[2:].strip()
                 #find first space:
                 index = data.index(" ")
                 #extract AZ target data
                 self.parent.raw_target[0] = float(data[0:index])
-                #remove az data:
-                data = data[index + 1:]
+                #remove az data and spaces:
+                data = data[index + 1:].strip()
                 self.parent.raw_target[1] = float(data)
         except:
             self.parent.raw_target[1] = 0
             print("ERROR in parse_data")
-
 
     def write_data(self, output_string):
         #Sends data to gpredict over socket

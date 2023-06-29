@@ -1,11 +1,16 @@
-#To generate python file from .ui: pyuic5 -x <form name> -o ui_form.py
+#To generate python file from .ui: pyuic5 -x NeedleGUI_ui_form_v1.ui -o ui_form.py
 
 import weakref
 import time
+
+from pip import main
 import ui_form
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QObject, QThread, pyqtSignal
+from numpy import linspace, cos, sin, pi
+import data_handler
 
 class MainWindow:
     def __init__(self, parent):
@@ -26,7 +31,15 @@ class MainWindow:
         self.ui.serial_port_input.setText(self.parent.serial_port_addr)
         self.ui.gpredict_port_input.textChanged.connect(self.gpredict_port_update) 
         self.ui.serial_port_input.textChanged.connect(self.serial_port_update)
-        #self.ui.stop_serial_btn.clicked.connect(self.stop_serial)
+
+        #Raw target reset button:
+        self.ui.raw_tgt_reset_btn.clicked.connect(self.raw_target_reset)
+
+        #Spiral search
+        # self.ui.resolution_spinBox.setText(str(self.parent.ss_resolution))
+        self.ui.resolution_spinBox.textChanged.connect(self.spiral_search_update)
+        self.ui.angular_spacing_spinBox.textChanged.connect(self.spiral_search_update)
+        self.ui.search_button.clicked.connect(self.spiral_search_button)
 
         #manual offset:
         self.ui.manual_offset_el_minus.hide()
@@ -59,13 +72,16 @@ class MainWindow:
         #Timer for updating values every second
         self.update_timer = QtCore.QTimer()
         self.update_timer.timeout.connect(self.update_gui_elements)
-        self.update_timer.start(1000)
+        self.update_timer.start(1)
 
         sys.exit(self.app.exec_())
         #Examples:
 
     def update_gui_elements(self):
         #Updates all labels/values/etc every 1 second
+
+        #Spiral search coords update
+        self.coords = self.parent.coords
 
         #raw target update
         if self.parent.gpredict_connection:
@@ -104,9 +120,40 @@ class MainWindow:
         #send current target to Arduino if target set command sent from gpredict:
         if self.parent.new_target and self.parent.serial_connection:
             self.parent.new_target = 0
-            #self.parent.serial_msg_queue.append("P " + str(self.parent.current_target[0]) + " " + str(self.parent.current_target[1]))
+            print('self.parent.current_target = ', self.parent.current_target)
+            # self.parent.serial_msg_queue.append("P " + str(self.parent.current_target[0]) + " " + str(self.parent.current_target[1]))
             self.parent.serial_msg_queue.append("AZ" + str(self.parent.current_target[0]) + " EL" + str(self.parent.current_target[1]))
         
+    def spiral_search_button(self):
+        if self.parent.spiral_search_connection:
+            self.stop_spiral_search()
+        else:
+            self.start_spiral_search()
+    
+    def start_spiral_search(self):
+        self.ui.search_button.setText('Stop Search')
+        print('starting spiral search')
+        print('angular spacing:', self.parent.ss_angular_spacing, '|| resolution:', self.parent.ss_resolution)
+        self.parent.spiral_search_connection = 1
+        self.thread = QThread()
+        self.worker = ss_Worker(self)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.thread.start()
+
+    def stop_spiral_search(self):
+        self.ui.search_button.setText('Start Search')
+        self.parent.spiral_search_connection = 0
+        print('stopping spiral search')
+        self.worker.stop()
+        self.thread.quit()
+        self.thread.wait()
+
+    def spiral_search_update(self):
+        self.parent.ss_resolution = int(self.ui.resolution_spinBox.text())
+        self.parent.ss_angular_spacing = int(self.ui.angular_spacing_spinBox.text())
+        self.parent.update_spiral_search()
+
     def gpredict_button(self):
         #when gpredict button has been clicked:
         if self.parent.gpredict_connection:
@@ -119,6 +166,12 @@ class MainWindow:
     
     def serial_port_update(self):
         self.parent.serial_port_addr = self.ui.serial_port_input.text()
+
+    def raw_target_reset(self):
+        self.parent.new_target = 1
+        self.parent.raw_target = [0, 0]
+        self.ui.raw_tgt_az_label.setText("{:05.1f}".format(self.parent.raw_target[0]))
+        self.ui.raw_tgt_el_label.setText("{:04.1f}".format(self.parent.raw_target[1]))
 
     def man_bt_1(self): #Could probably use a generator of some kind to generate these functions
         self.manual_update_az(100)
@@ -212,3 +265,28 @@ class MainWindow:
                 self.parent.sercon.send_data(b'C1')
         except:
             print("ERROR: rotate command not sent")
+
+class ss_Worker(QObject):
+    def __init__(self, mainclass):
+        super().__init__()
+        self.main = mainclass
+
+
+    def run(self):
+        for i in range(len(self.main.parent.coords)):
+            if self.main.parent.spiral_search_connection:
+                self.main.manual_update_az(self.main.parent.coords[i][0])
+                self.main.manual_update_el(self.main.parent.coords[i][1])
+                if i > 0:
+                    if abs(self.main.parent.coords[i][0] - self.main.parent.coords[i-1][0]) > abs(self.main.parent.coords[i][1] - self.main.parent.coords[i-1][1]):
+                        time.sleep(0.5*abs(self.main.parent.coords[i][0] - self.main.parent.coords[i-1][0]))
+                    else:
+                        time.sleep(0.5*abs(self.main.parent.coords[i][1] - self.main.coords[i-1][1]))
+            else:
+                break
+
+    def stop(self):
+        self.main.parent.spiral_search_connection = 0
+
+
+

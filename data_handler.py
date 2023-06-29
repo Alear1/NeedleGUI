@@ -4,6 +4,7 @@ import serial_connector
 import socket_attachment
 import gui_main
 import misc_tools
+import time
 
 class CoreInfo:
     def __init__(self):
@@ -12,12 +13,12 @@ class CoreInfo:
         #standard is [az, el]
         self.raw_target = [0, 0]
         self.raw_position = [0, 0]
-        self.manual_target_offset = [0,0]
+        self.manual_target_offset = [0, 0]
         self.manual_position_offset = [0, 0]
         self.auto_offset = [0, 0]
 
-        self.current_target = misc_tools.add_coords(self.raw_target, self.manual_target_offset) #Need to add auto offset to this
-
+        self.current_target = misc_tools.add_three_coords(self.raw_target, self.manual_target_offset, self.auto_offset)
+        
         self.current_position = self.raw_position + self.manual_position_offset #Change??
         
         #Data required to create gpredict connection:
@@ -32,10 +33,18 @@ class CoreInfo:
         self.serial_connection_enabled = 0 
         self.serial_msg_queue = []
 
+        #Data required to start spiral search:
+        self.spiral_search_connection = 0
+        self.ss_resolution = 10
+        self.ss_angular_spacing = 10
+        self.coords = misc_tools.generate_ss_coords(self.ss_resolution, self.ss_angular_spacing)
+
         #is there currently a connection to Gpredict?
         self.gpredict_connection = 0
         #is there currently a connection to the serial port?
         self.serial_connection = 0 
+        #is spiral seach active?
+        self.spiral_search_active = 0
 
         #Contains the list of state variables 
         self.state_variables = {"Emergency Stop" : 0, "CCW Rotating" : 0, "CW Rotating" : 0,
@@ -84,3 +93,15 @@ class CoreInfo:
     
     def update_current_target(self):
         self.current_target = misc_tools.add_coords(self.raw_target, self.manual_target_offset) #Need to add auto offset to this
+        # print('Raw EL:', self.raw_target[1], '|| Man EL:', self.manual_target_offset[1], '|| Targ EL:', self.current_target[1])
+
+    def start_spiral_search(self):
+        print('start_spiral_search active')
+        self.spiral_search_active = 1
+
+    def stop_spiral_search(self):
+        self.spiral_search_active = 0
+
+    def update_spiral_search(self):
+        self.coords = misc_tools.generate_ss_coords(self.ss_resolution, self.ss_angular_spacing)
+
