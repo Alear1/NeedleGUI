@@ -83,9 +83,11 @@ class SerialHandler:
                             elif rx_data[0] == "S":
                                 self.parse_state(rx_data)
                             else:
-                                print("WARNING: unrecognized response from connected serial device")
+                                # print("WARNING: unrecognized response from connected serial device")
+                                pass
                         except:
-                            print("ERROR: received null response from serial device")
+                            # print("ERROR: received null response from serial device")
+                            pass
 
                 time.sleep(0.001)
             except:
@@ -113,6 +115,7 @@ class SerialHandler:
     def send_data(self, msg):
         #takes a message string and converts to bytes, then sends over serial connection
         #returns 1 if successful and 0 if failed
+        print('msg:', msg)
         try:
             bmsg = bytes(msg, 'utf-8')
             if self.ser.is_open:

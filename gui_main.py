@@ -98,6 +98,9 @@ class MainWindow:
         if not self.parent.serial_connection:
             self.ui.serial_connect_btn.setText("Open Serial Connection")
             self.ui.serial_state_str.setText("Disconnected")
+        elif self.parent.serial_connection:
+            self.ui.serial_connect_btn.setText("Close Serial Connection")
+            self.ui.serial_state_str.setText("connected")
 
         #update serial and socket connection state:
         if self.parent.socket_connection_enabled and not self.parent.gpredict_connection:
@@ -120,9 +123,12 @@ class MainWindow:
         #send current target to Arduino if target set command sent from gpredict:
         if self.parent.new_target and self.parent.serial_connection:
             self.parent.new_target = 0
-            print('self.parent.current_target = ', self.parent.current_target)
+            # print('self.parent.current_target = ', self.parent.current_target)
             # self.parent.serial_msg_queue.append("P " + str(self.parent.current_target[0]) + " " + str(self.parent.current_target[1]))
             self.parent.serial_msg_queue.append("AZ" + str(self.parent.current_target[0]) + " EL" + str(self.parent.current_target[1]))
+
+        #put your print statements here for debugging
+        # print('self.parent.current_target:', self.parent.current_target, '|| self.parent.manual_target_offset[1]:', self.parent.manual_target_offset[1])
         
     def spiral_search_button(self):
         if self.parent.spiral_search_connection:
