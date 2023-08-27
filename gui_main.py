@@ -60,6 +60,12 @@ class MainWindow:
         self.ui.el_offset_onedn_btn.clicked.connect(self.man_bt_13)
         self.ui.el_offset_tenthdn_btn.clicked.connect(self.man_bt_14)
 
+        #Tharusha Unwind CCW and Unwind CW 2023-07-01
+        self.ui.unwind_ccw_btn.pressed.connect(self.unwind_ccw)
+        self.ui.unwind_ccw_btn.released.connect(self.unwind_stop)
+        self.ui.unwind_cw_btn.pressed.connect(self.unwind_cw)
+        self.ui.unwind_cw_btn.released.connect(self.unwind_stop)
+
         #auto offset:
         self.ui.auto_offset_az_minus.hide()
         self.ui.auto_offset_el_minus.hide()
@@ -98,9 +104,6 @@ class MainWindow:
         if not self.parent.serial_connection:
             self.ui.serial_connect_btn.setText("Open Serial Connection")
             self.ui.serial_state_str.setText("Disconnected")
-        elif self.parent.serial_connection:
-            self.ui.serial_connect_btn.setText("Close Serial Connection")
-            self.ui.serial_state_str.setText("connected")
 
         #update serial and socket connection state:
         if self.parent.socket_connection_enabled and not self.parent.gpredict_connection:
@@ -123,12 +126,9 @@ class MainWindow:
         #send current target to Arduino if target set command sent from gpredict:
         if self.parent.new_target and self.parent.serial_connection:
             self.parent.new_target = 0
-            # print('self.parent.current_target = ', self.parent.current_target)
+            print('self.parent.current_target = ', self.parent.current_target)
             # self.parent.serial_msg_queue.append("P " + str(self.parent.current_target[0]) + " " + str(self.parent.current_target[1]))
             self.parent.serial_msg_queue.append("AZ" + str(self.parent.current_target[0]) + " EL" + str(self.parent.current_target[1]))
-
-        #put your print statements here for debugging
-        # print('self.parent.current_target:', self.parent.current_target, '|| self.parent.manual_target_offset[1]:', self.parent.manual_target_offset[1])
         
     def spiral_search_button(self):
         if self.parent.spiral_search_connection:
@@ -272,11 +272,54 @@ class MainWindow:
         except:
             print("ERROR: rotate command not sent")
 
+    #Tharusha Unwind CCW and Unwind CW methods 2023-07-01
+    def unwind_ccw(self):
+        self.parent.unwind_connection=1
+        self.parent.unwind_ccw=1
+        self.parent.unwind_counter=0
+        print("Unwinding counterclockwise...")
+        self.thread = QThread()
+        self.worker = ss_Worker(self)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.unwind)
+        self.thread.start()
+
+    def unwind_stop(self):
+        print("Stopped unwinding")
+        self.worker.stop()
+        self.thread.quit()
+        self.thread.wait()
+
+    def unwind_cw(self):
+        self.parent.unwind_connection=1
+        self.parent.unwind_ccw=0
+        self.parent.unwind_counter=0
+        print("Unwinding clockwise...")
+        self.thread = QThread()
+        self.worker = ss_Worker(self)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.unwind)
+        self.thread.start()
+
+    
+
 class ss_Worker(QObject):
     def __init__(self, mainclass):
         super().__init__()
         self.main = mainclass
 
+    #Tharusha Unwind CCW and Unwind CW threads 2023-07-01
+    def unwind(self):
+        while self.main.parent.unwind_connection:
+            self.main.parent.unwind_counter+=1
+            if self.main.parent.unwind_ccw:
+                print("unwinding ccw:", self.main.parent.unwind_counter, "degrees")
+                self.main.manual_update_az(-1)
+            else:
+                print("unwinding cw:", self.main.parent.unwind_counter, "degrees")
+                self.main.manual_update_az(1)
+            time.sleep(0.75)
+            
 
     def run(self):
         for i in range(len(self.main.parent.coords)):
@@ -290,9 +333,11 @@ class ss_Worker(QObject):
                         time.sleep(0.5*abs(self.main.parent.coords[i][1] - self.main.coords[i-1][1]))
             else:
                 break
-
+    
+    #Tharusha Unwind CCW and Unwind CW stop adjusted 2023-07-01
     def stop(self):
-        self.main.parent.spiral_search_connection = 0
+        self.main.parent.spiral_search_connection=0
+        self.main.parent.unwind_connection=0
 
 
 
