@@ -104,6 +104,9 @@ class MainWindow:
         if not self.parent.serial_connection:
             self.ui.serial_connect_btn.setText("Open Serial Connection")
             self.ui.serial_state_str.setText("Disconnected")
+        elif self.parent.serial_connection:
+            self.ui.serial_connect_btn.setText("Close Serial Connection")
+            self.ui.serial_state_str.setText("Connected")
 
         #update serial and socket connection state:
         if self.parent.socket_connection_enabled and not self.parent.gpredict_connection:
